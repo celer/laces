@@ -1,4 +1,4 @@
-< items.map(function(item){ 
+<% items.map(function(item){ 
 			if(typeof item=="string"){
 				if(/\-+/.test(item)){
 					%>
