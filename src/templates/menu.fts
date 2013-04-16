@@ -1,0 +1,17 @@
+< items.map(function(item){ 
+			if(typeof item=="string"){
+				if(/\-+/.test(item)){
+					%>
+<li class="divider"></li>
+					<%
+				} else {
+					%>
+<li><a tabindex="-1" href="#"><%=item%></a></li>
+					<%
+				}
+			} else {
+		%>
+<li><a tabindex="-1" href=<%#item.href||"#"%> id=<%#item.id||""%>><%=item.title%></a></li>
+		<%}
+ }); %>	
+

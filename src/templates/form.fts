@@ -1,0 +1,173 @@
+<%
+	var helpblock=function(field){
+		if(field.desc){
+			%><span class="help-block"><%=field.desc%></span><%
+		}
+	}
+	if(typeof formType=="undefined"){
+		var formType="";
+	}
+	var cgType=(formType=="inline"?"span":"div");
+	var modify=function(what,field){	
+		if(field.prepend || field.append){
+			var cls = (field.prepend?"input-prepend":"")+(field.append?" input-append":"");
+			if(what=="prepend") {
+				%>
+						<div class=<%#cls%>><%
+			}
+		}
+
+		if(field[what]){
+			if(field[what].input){
+				%><span class="add-on"><%=field[what].input%></span><%
+			}
+			if(field[what].button){
+				%><button class="btn" type="button"><%=field[what].button%></button><%
+			}
+			if(field[what].menu){
+					%><div class="btn-group">
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+							<%=field[what].menu.title%>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<%=Laces.menu(field[what].menu)%>
+						</ul>
+					</div>
+				<%
+			}
+			if(what=="append"){
+				%></div><%
+			}
+		}
+			
+	}
+%>
+	<fieldset>
+		<% for(var fieldName in fields){ 
+			var field = fields[fieldName];
+			%>	
+			<<%=cgType%> class="control-group">
+			<%
+			if(field.type=="text" || field.type=="password" || field.type=="file"){
+				if(formType=="inline"){
+					modify("prepend",field);
+					%><input type=<%#field.type%> class="input-small" name=<%#fieldName%> placeholder=<%#field.placeholder%>><%
+					modify("append",field);
+				} else if(formType=="horizontal") {
+					%>	
+						<label class="control-label" for=<%#fieldName%>><%=field.label%></label>
+						<div class="controls">
+							<% modify("prepend",field) %>
+							<input type=<%#field.type%> name=<%#fieldName%> placeholder=<%#field.placeholder%>>
+							<% modify("append",field) %>
+							<% helpblock(field) %>
+						</div>
+					<%
+				} else {
+					%>
+						<label for=<%#fieldName%>><%=field.label%></label>
+						<% modify("prepend",field) %>
+						<input type=<%#field.type%> name=<%#fieldName%> placeholder=<%#field.placeholder?field.placeholder:""%>>
+						<% modify("append",field) %>
+						<% helpblock(field) %>
+					<%
+				}
+			} else if(field.type=="textarea"){
+				if(formType=="horizontal"){
+					%>
+						<label class="control-label" for=<%#fieldName%>><%=field.label%></label>
+						<div class="controls">
+							<textarea name=<%#fieldName%> placeholder=<%#field.placeholder?field.placeholder:""%>></textarea>
+							<% helpblock(field) %>
+						</div>
+					<%
+				} else {
+					%>
+						<label for=<%#fieldName%>><%=field.label%></label>
+						<textarea name=<%#fieldName%> placeholder=<%#field.placeholder?field.placeholder:""%>></textarea>
+						<% helpblock(field) %>
+					<%
+				}
+			} else if(field.type=="checkbox" || field.type=="radio"){ 
+				if(formType=="inline"){
+					%>
+						<label for=<%#fieldName%> class=<%#field.type%>>
+						<input type=<%#field.type%> name=<%#fieldName%>><%=field.label%>
+						</label>
+					<%
+				} else if(formType=="horizontal"){
+					%>
+						<div class="controls">
+							<label for=<%#fieldName%> class=<%#field.type%>>
+							<input type=<%#field.type%> name=<%#fieldName%>><%=field.label%>
+							</label>
+							<% helpblock(field) %>
+						</div>
+					<%
+				} else {
+					%>
+						<label for=<%#fieldName%> class=<%#field.type%>>
+						<input type=<%#field.type%> name=<%#fieldName%>><%=field.label%>
+						</label>
+						<% helpblock(field) %>
+					<%
+				}
+			} else if(field.type=="hidden"){
+				%>
+					<input type="hidden" name=<%#fieldName%>>
+				<%
+			} else if(/^select/.test(field.type)){
+				if(field.type=="select multiple") field.multiple=true;
+				var values = field.values || {};
+				if(values instanceof Array){
+					var ret = {};
+					values.map(function(i){
+						ret[i]=i;
+					});	
+					values=ret;
+				}
+				if(formType=="inline"){
+					%>
+						<select name=<%#fieldName%> <%=field.multiple?"multiple=\"multiple\"":""%>>
+							<% for(var valueName in values){ 
+								var value = values[valueName];
+							%>
+								<option value=<%#valueName%>><%=value%></option>
+							<% } %>	
+						</select>
+					<%
+				} else if(formType=="horizontal"){
+					%>
+						<label class="control-label" for=<%#fieldName%>><%=field.label%></label>
+						<div class="controls">
+							<select name=<%#fieldName%> <%=field.multiple?"multiple=\"multiple\"":""%>>
+								<% for(var valueName in values){ 
+									var value = values[valueName];
+								%>
+									<option value=<%#valueName%>><%=value%></option>
+								<% } %>	
+							</select>
+							<% helpblock(field) %>
+						</div>
+					<%
+				} else {
+					%>
+						<label for=<%#fieldName%>><%=field.label%></label>
+						<select name=<%#fieldName%>>
+							<% for(var valueName in values){ 
+								var value = values[valueName];
+							%>
+								<option value=<%#valueName%>><%=value%></option>
+							<% } %>
+						</select>
+						<% helpblock(field) %>
+					<%
+				}
+			} 
+			%>
+			</<%=cgType%>>
+			<%
+		} %>
+	</fieldset>
+

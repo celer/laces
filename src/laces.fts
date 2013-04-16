@@ -1,0 +1,8 @@
+Laces={};
+Laces.menu=<%= Fire.parseSync("templates/menu.fts") %>
+Laces.form=<%= Fire.parseSync("templates/form.fts") %>
+
+if(typeof module!="undefined" && module.exports){
+	module.exports=Laces;
+}	
+
