@@ -77,6 +77,24 @@ Here is the [example](http://htmlpreview.github.io/?https://github.com/celer/lac
 
  - If it finds a string that matches the regex /^-+$/ it will create a divider otherwise it will create a menu item with the string value
 
+How to use it
+=============
 
+In a browser:
+
+```html
+	<script src="laces.min.js"></script>
+	<script>
+		Laces.menu({...});
+	</script>
+```
+
+In NodeJS:
+
+```Javascript
+	var Laces = require('laces');
+
+	Laces.menu({...});
+```	
 
 
