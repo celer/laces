@@ -1,3 +1,5 @@
+Build Status: [![Build Status](https://travis-ci.org/celer/laces.png)](https://travis-ci.org/celer/laces)
+
 Introduction
 ============
 

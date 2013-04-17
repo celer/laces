@@ -2,6 +2,7 @@ var DomJS=require('dom-js').DomJS;
 var Laces=require('../laces.min.js');
 var assert=require('assert');
 var fs=require('fs');
+var path=require('path');
 
 var domjs = new DomJS();
 
@@ -11,15 +12,15 @@ var footer='</body></html>';
 
 
 var compare=function(name,html,onComplete){
-		fs.writeFile(name+".html",html,function(err,res){
-			fs.exists(name+".json",function(exists){
+		fs.writeFile(path.join(__dirname,name+".html"),html,function(err,res){
+			fs.exists(path.join(__dirname,name+".json"),function(exists){
 				domjs.parse(html,function(err,result){
 					if(!exists){
-						fs.writeFile(name+".json",JSON.stringify(result),function(err,res){
+						fs.writeFile(path.join(__dirname,name+".json"),JSON.stringify(result),function(err,res){
 							return onComplete(err,true);
 						});
 					} else {
-						fs.readFile(name+".json",function(err,data){
+						fs.readFile(path.join(__dirname,name+".json"),function(err,data){
 							data=data.toString();
 							assert.equal(data,JSON.stringify(result))
 							return onComplete(err,true);
