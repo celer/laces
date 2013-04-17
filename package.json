@@ -1,17 +1,21 @@
 {
   "name": "laces",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A client side / server side utility to generate forms and menus for bootstrap from a JS object",
   "main": "laces.min.js",
   "keywords": [
     "bootstrap",
     "html"
   ],
-	"scripts":{
-		"prepublish":"make clean all"
-	},
+  "scripts": {
+    "prepublish": "make clean all"
+  },
   "dependencies": {
-    "fire-ts": "0.0.4",
-    "uglify-js": "~2.2.5"
+    "fire-ts": "~0.0.4",
+    "uglify-js": "~2.2.5",
+  },
+  "devDependencies": {
+    "dom-js": "~0.0.9"
+    "mocha": "~1.9.0"
   }
 }

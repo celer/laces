@@ -1,7 +1,6 @@
 <% items.map(function(item){ 
 			if(typeof item=="string"){
-				if(/\-+/.test(item)){
-					%>
+				if(/\-+/.test(item)){ %>
 <li class="divider"></li>
 					<%
 				} else {
