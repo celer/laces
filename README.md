@@ -60,11 +60,13 @@ If you supply a javascript object to Laces.menu it will generate a menu for you:
 
 ```Javascript
 	Laces.menu({items: [
-		"Item1",
+		"bar",
 		"----", 
-		{ href:"/foo", id:"fooMenu", title:"Foo" }
+		{ href:"href", id:"wolf", title:"wolf" }
 	]});
 ```
+Here is the [example](http://htmlpreview.github.io/?https://github.com/celer/laces/blob/master/test/menu.html)
+
 
  * items (string or /^-+$/ or object)
 	* href - the href for the menu item
